@@ -15,6 +15,7 @@ import {Component, Input} from '@angular/core'
     </div>
     `,
     styles:[`
+        .thumbnail{min-height:210px;}
         .pad-left{margin-left: 5px;}
         .well div{color: #34ff00;}
     `]
