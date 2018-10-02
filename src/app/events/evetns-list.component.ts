@@ -8,7 +8,7 @@ import {Component} from '@angular/core'
         <hr/>
         <div class= "well"><div>What the hell do you want.</div></div>
         <div class="row">
-            <div  *ngFor ="let event of events"  class = "col-md-5">
+            <div  *ngFor ="let event of events"  class = "col-md-5" >
                 <event-thumb [event] = "event"></event-thumb>
             </div>
         </div>
