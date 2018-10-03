@@ -32,6 +32,6 @@ export class eventlist implements OnInit{
      }
      handleThumbnailClick(eventName){
          debugger;
-        toastr.
+        toastr.success(eventName)
      }
 }
