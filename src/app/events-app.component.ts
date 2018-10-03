@@ -3,7 +3,8 @@ import {Component} from '@angular/core'
     selector: 'events-list',
     template: `
     <nav-bar></nav-bar>
-    <events></events>
+    <router-outlet></router-outlet>
+ 
     `
 })
 export class EventListComponent{

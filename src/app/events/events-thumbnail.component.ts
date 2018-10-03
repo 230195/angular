@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core'
-
+//
 @Component({
     selector: 'event-thumb',
     template: `
-    <div class= "well hoverwell thumbnail">
+    <div [routerLink] = "['/events', event.id]" class= "well hoverwell thumbnail">
         <h2>{{event?.name}}</h2>
         <div>Date: {{event?.date}}</div>
         <div [class.green] = "event?.time ==='9:00 am'">Time: {{event?.time}}</div>
@@ -38,7 +38,7 @@ export class EventThumbnail{
     alert(data);
 }
   getStartTimeClass(){
-    const isEarlyStart = this.event && this.event.time === '9:00 am'// or
+    const isEarlyStart = this.event && this.event.time === '9:00 am'
     if(this.event && this.event.time === "10:00 am")
         return ['green', 'bold']
     return {green: isEarlyStart, bold: isEarlyStart}
