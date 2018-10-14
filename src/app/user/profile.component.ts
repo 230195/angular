@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import {Router} from '@angular/router'
 
 @Component({
   template: `
@@ -9,10 +10,15 @@ import { Component } from '@angular/core'
       <br />
       <br />
       <button type="submit" class="btn btn-primary">Save</button>
-      <button type="button" class="btn btn-default">Cancel</button>
+      <button (click) ="cancel()" type="button" class="btn btn-default">Cancel</button>
     </div>
   `,
 })
 export class ProfileComponent {
-       
+
+  constructor(private router: Router){}
+  cancel(){
+    debugger
+    this.router.navigate(['/events'])// this is the way where we inject the router service and use it to navigate
+}
 }
