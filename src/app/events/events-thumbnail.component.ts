@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core'
-//
+import {IEvent} from './shared/event.model'
+// 
 @Component({
     selector: 'event-thumb',
     template: `
@@ -13,17 +14,17 @@ import {Component, Input} from '@angular/core'
             <span *ngSwitchCase = "'9:00 am'"> (Normal Start) </span>
             <span *ngSwitchDefault> (Late Start) </span>
         </div>
-        <div [ngSwitch] = "event?.onlineurl">
+        <!--<div [ngSwitch] = "event?.onlineurl">
             <span *ngSwitchCase = "'yes'">Early Start </span>
             <span *ngSwitchCase = "null"> Late Start </span>
             <span *ngSwitchDefault> Normal Start </span>
-        </div> <!--[style.color] = "getStyle()"    [ngStyle] = "getStyle1()"-->
+        </div> -->
+        <!--[style.color] = "getStyle()"    [ngStyle] = "getStyle1()"-->
         <div  *ngIf = "event?.location"> 
             <span > Location: {{event?.location?.address}}</span>
             <span class = "pad-left">{{event?.location?.city}}, {{event?.location?.country}}</span>
         </div>
         <div> Price: \${{event?.price}}</div>
-        <div>date: {{event?.date}}</div>
         <div [hidden] = "!event?.onlineurl">Online Url: {{event?.onlineurl}} </div>
         
     </div>
@@ -33,11 +34,11 @@ import {Component, Input} from '@angular/core'
         .bold{font-weight:bold;}
         .thumbnail{min-height:250px;}
         .pad-left{margin-left: 5px;}
-        .well div {color:black;}
+        
     `]
 })
 export class EventThumbnail{
-  @Input() event: any 
+  @Input() event: IEvent 
   someProperty: string  =  "Some Value"
   logFoo(data){
     alert(data);
@@ -45,7 +46,7 @@ export class EventThumbnail{
   getStartTimeClass(){
       debugger
     const isEarlyStart = this.event && this.event.time === '8:00 am'
-    if(this.event && this.event.time === "9:00 am")
+    if(this.event && this.event.time === "8:00 am")
         return ['green', 'bold']
     return {green: isEarlyStart, bold: isEarlyStart}
   }
