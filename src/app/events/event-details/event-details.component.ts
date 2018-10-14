@@ -11,8 +11,9 @@ import{ActivatedRoute} from '@angular/router'
 
 export class EventDetailsComponent implements OnInit{
    event : any
-    constructor(private eventService : EventService, private route: ActivatedRoute){}
+    constructor(private eventService : EventService, private route: ActivatedRoute){debugger}
     ngOnInit(){
+        debugger
        this.event = this.eventService.getEvent(this.route.snapshot.params['id'])
     }
 }

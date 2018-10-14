@@ -1,13 +1,21 @@
 import {Injectable} from '@angular/core'
-import {Subject} from 'rxjs'
+import {Subject} from 'rxjs'// create the observable of rsjx for the subject step 1 for the Event list resolver...
 @Injectable()
 export class EventService{
+    
     getEvents(){
+      debugger 
+    
       let subject = new Subject()
-      setTimeout(() => {subject.next(Events); subject.complete();},100)
+      setTimeout(() => {subject.next(Events); subject.complete();},100)// Step 2...
+      // console.log(subject.subscribe(x => { for(var key  in x){
+      //  alert(JSON.stringify(x[key].name))
+      // }
+      //}))
         return subject
     }
     getEvent( i : number){
+      debugger
       return Events.find(event => event.id == i)
     }
 }

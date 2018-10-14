@@ -8,9 +8,13 @@
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
               <li>
-                <a [routerLink] = "['/events']" >All Events</a>
+                <!--routerLink tells where to go -->
+                <!--routerLinkActiveOption tells to insert the active class depending on the route.....choosen -->
+                <!-- [routerLinkActiveOptions] = "{exact: true}" makes the check of exact link  -->
+                <a [routerLink] = "['/events']" routerLinkActive = "active"
+                [routerLinkActiveOptions] = "{exact: true}" >All Events</a>
               </li>
-              <li><a [routerLink] = "['/events','new']">Create Event</a></li>
+              <li><a [routerLink] = "['/events','new']" routerLinkActive = "active">Create Event</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
                   Events
@@ -26,7 +30,7 @@
             <div class="navbar-header navbar-right">
               <ul class="nav navbar-nav">
                 <li>
-                  <a>Welcome John</a>
+                  <a [routerLink] = "['user/profile']">Welcome John</a>
                 </li>
               </ul>
             </div>

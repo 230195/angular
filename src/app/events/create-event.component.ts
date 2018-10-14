@@ -16,6 +16,7 @@ export class CreateEventComponent{
     isDirty: boolean = true
     constructor(private router : Router){debugger}
     cancel(){
+        debugger
         this.router.navigate(['/events'])// this is the way where we inject the router service and use it to navigate
     }
     updateIsDirty(){

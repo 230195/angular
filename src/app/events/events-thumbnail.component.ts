@@ -6,15 +6,20 @@ import {Component, Input} from '@angular/core'
     <div [routerLink] = "['/events', event.id]" class= "well hoverwell thumbnail">
         <h2>{{event?.name}}</h2>
         <div>Date: {{event?.date}}</div>
-        <div [class.green] = "event?.time ==='9:00 am'">Time: {{event?.time}}</div>
-        <div [ngClass] = "getStartTimeClass()">Time: {{event?.time}}</div>
+        <!--<div [class.green] = "event?.time ==='9:00 am'">Time: {{event?.time}}</div>-->
+        <div [ngClass] = "getStartTimeClass()" [ngSwitch] = "event?.time">
+            <span>Time: {{event?.time}}</span>
+            <span *ngSwitchCase = "'8:00 am'">(Early Start) </span>
+            <span *ngSwitchCase = "'9:00 am'"> (Normal Start) </span>
+            <span *ngSwitchDefault> (Late Start) </span>
+        </div>
         <div [ngSwitch] = "event?.onlineurl">
             <span *ngSwitchCase = "'yes'">Early Start </span>
             <span *ngSwitchCase = "null"> Late Start </span>
             <span *ngSwitchDefault> Normal Start </span>
-        </div>
-        <div [style.color] = "getStyle()" *ngIf = "event?.location"> 
-            <span [ngStyle] = "getStyle1()"> Location: {{event?.location?.address}}</span>
+        </div> <!--[style.color] = "getStyle()"    [ngStyle] = "getStyle1()"-->
+        <div  *ngIf = "event?.location"> 
+            <span > Location: {{event?.location?.address}}</span>
             <span class = "pad-left">{{event?.location?.city}}, {{event?.location?.country}}</span>
         </div>
         <div> Price: \${{event?.price}}</div>
@@ -38,8 +43,9 @@ export class EventThumbnail{
     alert(data);
 }
   getStartTimeClass(){
-    const isEarlyStart = this.event && this.event.time === '9:00 am'
-    if(this.event && this.event.time === "10:00 am")
+      debugger
+    const isEarlyStart = this.event && this.event.time === '8:00 am'
+    if(this.event && this.event.time === "9:00 am")
         return ['green', 'bold']
     return {green: isEarlyStart, bold: isEarlyStart}
   }

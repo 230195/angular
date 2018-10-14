@@ -24,12 +24,14 @@ declare let toastr
 })
 
 export class eventlist implements OnInit{
-    events : any[]
+    events : any
     constructor(private eventService: EventService, private route : ActivatedRoute){
         
     }
      ngOnInit(){
-        this.events = this.route.snapshot.data['events']
+         debugger
+        this.events = this.route.snapshot.data['Events']
+        //this.eventService.getEvents().subscribe(events =>{this.events = events})// before event resolver.. 
      }
      handleThumbnailClick(eventName){
         toastr.success(eventName)
