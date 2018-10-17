@@ -30,7 +30,8 @@
             <div class="navbar-header navbar-right">
               <ul class="nav navbar-nav">
                 <li>
-                  <a [routerLink] = "['user/profile']" routerLinkActive = "active">Welcome John</a>
+                  <a *ngIf="!authServc.isAuthenticated()" [routerLink] = "['user/login']">Login</a>
+                  <a *ngIf="authServc.isAuthenticated()" [routerLink] = "['user/profile']" >Welcome {{authServc.currentUser.firstName}}</a>
                 </li>
               </ul>
             </div>

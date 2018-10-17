@@ -1,4 +1,6 @@
 import {Component} from '@angular/core'
+import {AuthService} from './auth.service'
+import {Router} from '@angular/router'
 
 @Component({
  templateUrl:'./login.component.html'
@@ -7,9 +9,16 @@ import {Component} from '@angular/core'
 export class LoginComponent{
     userName
     password
+    constructor(private authServc: AuthService, private route: Router){}
     login(loginData){
-        alert(JSON.stringify(loginData))
+        let check: boolean
+        check = this.authServc.loginUser(loginData.userName, loginData.password)
+        if(check === true)
+            this.route.navigate(['events'])
         console.log(loginData)
-        return false
+        return check
+    }
+    cancel(){
+        this.route.navigate(['events'])
     }
 }
