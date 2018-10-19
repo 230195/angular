@@ -12,9 +12,8 @@ import {IEvent} from '../shared/event.model'
 
 export class EventDetailsComponent implements OnInit{
    event : IEvent
-    constructor(private eventService : EventService, private route: ActivatedRoute){debugger}
+    constructor(private eventService : EventService, private route: ActivatedRoute){}
     ngOnInit(){
-        debugger
        this.event = this.eventService.getEvent(this.route.snapshot.params['id'])
     }
 }

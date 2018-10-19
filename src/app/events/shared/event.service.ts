@@ -6,10 +6,8 @@ import { IEvent } from './event.model';
 export class EventService{
     
     getEvents(): Observable<IEvent[]>{
-      debugger 
-    
       let subject = new Subject<IEvent[]>()
-      setTimeout(() => {subject.next(Events); subject.complete();},100)// Step 2...
+      setTimeout(() => {subject.next(Events.slice(0)); subject.complete();},100)// Step 2...
       // console.log(subject.subscribe(x => { for(var key  in x){
       //  alert(JSON.stringify(x[key].name))
       // }
@@ -17,8 +15,7 @@ export class EventService{
         return subject
     }
     getEvent( id : number): IEvent{
-      debugger
-      return Events.find(event => event.id == id)
+      return Events.slice(0).find(event => event.id == id)
     }
 }
 const Events: IEvent[] = [

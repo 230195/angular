@@ -4,6 +4,9 @@
     background-color: #485563;
     cursor: pointer;
   }
+  label{
+    font-size:15px;
+  }
   h2{
     color:rgb(147, 238, 147);
   }

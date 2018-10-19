@@ -30,7 +30,6 @@ export class eventlist implements OnInit{
         
     }
      ngOnInit(){
-         debugger
         this.events = this.route.snapshot.data['Events']
         //this.eventService.getEvents().subscribe(events =>{this.events = events})// before event resolver.. 
      }

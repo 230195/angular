@@ -22,7 +22,6 @@
     "@angular/router": "^6.0.3",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",
-    "jquery": "^3.3.1",
     "ngf-bootstrap": "0.0.5",
     "rxjs": "^6.0.0",
     "toastr": "^2.1.4",
