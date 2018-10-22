@@ -7,15 +7,15 @@
             <div class="form-group" [ngClass]="{'error': profileForm.controls.firstName?.invalid
             && profileForm.controls.firstName?.touched}">
               <label for="firstName">First Name:</label>
-              <em *ngIf = "profileForm.controls.firstName?.invalid
-              && profileForm.controls.firstName?.touched">Required</em>
+              <em *ngIf = "validateFirstName() && profileForm.controls.firstName?.errors.required">Required</em>
+              <em *ngIf = "validateFirstName() && profileForm.controls.firstName?.errors.pattern">Must start with a letter</em>
               <input formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..." />
             </div>
             <div class="form-group" [ngClass]="{'error': profileForm.controls.lastName?.invalid
             && profileForm.controls.lastName?.touched}">
               <label for="lastName">Last Name:</label>
-              <em *ngIf = "profileForm.controls.lastName?.invalid
-              && profileForm.controls.lastName?.touched">Required</em>
+              <em *ngIf = "validateLastName() && this.profileForm.lastName?.errors.required">Required</em>
+              <em *ngIf = "validateLastName() && this.profileForm.lastName?.errors.pattern">Required</em>
               <input formControlName="lastName" id="lastName" type="text" class="form-control" placeholder="Last Name..." />
             </div>
       

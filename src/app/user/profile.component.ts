@@ -20,7 +20,8 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService){}
   ngOnInit(){
     let user: IUser = this.authService.currentUser
-    let firstName1 = new FormControl(user!= null?user.firstName:null,Validators.required)
+    let firstName1 = new FormControl(user!= null?user.firstName:null,[Validators.required,
+    Validators.pattern('[a-zA-Z].*') ])
     let lastName1 = new FormControl(user!=null?user.lastName:null,Validators.required)
     this.profileForm = new FormGroup({
       firstName: firstName1,
@@ -36,5 +37,13 @@ export class ProfileComponent implements OnInit {
       this.authService.updateCurrentUser(formValues.firstName,formValues.lastName)
       this.router.navigate(['events'])
     }
+  }
+  validateFirstName(){
+    return this.profileForm.controls.firstName.invalid
+            && this.profileForm.controls.firstName.touched
+  }
+  validateLastName(){
+    return this.profileForm.controls.lastName.invalid
+            && this.profileForm.controls.lastName.touched
   }
 }
