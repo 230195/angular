@@ -21,21 +21,22 @@ export class CreateEventComponent{
     isDirty: boolean = true
     constructor(private router: Router, private eventService: EventService) { }
     ngOnInit(){
-        // this.newEvent = {
-        //     id:0,
-        //     name: 'Ng Spectacular',
-        //     date: new Date(),
-        //     time: '6:00 pm',
-        //     price: 789.9,
-        //     location:{
-        //         address:'20th street',
-        //         city: 'Berlin',
-        //         country: 'Germany'
-        //     },
-        //     imageUrl: 'https://imagejournal.org/wp-content/uploads/2018/09/cover-98-1-154x220.jpg',
-        //     onlineurl:'https://imagejournal.org',
-        //     sessions: []
-        // }
+        this.newEvent = {
+            id:undefined,
+            name: undefined,
+            date: undefined,
+            time: undefined,
+            price: undefined,
+            location:{
+                address:undefined,
+                city: undefined,
+                country: undefined
+            },
+            imageUrl: undefined,
+            onlineurl:undefined,
+            sessions: []
+            // 'https://imagejournal.org/wp-content/uploads/2018/09/cover-98-1-154x220.jpg'
+        }
     }
     cancel() {
         this.router.navigate(['/events'])// this is the way where we inject the router service and use it to navigate
