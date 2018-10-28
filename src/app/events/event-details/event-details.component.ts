@@ -8,12 +8,15 @@ import {IEvent, ISession} from '../shared/event.model'
         .container{padding-right:20px; padding-left:20px;}
         .event-image{height:100px;}
         a{cursor: pointer}
+        div button {margin-bottom: 10px; margin-left:4px;}
     `]
 })
 
 export class EventDetailsComponent implements OnInit{
    event : IEvent
    addMode: boolean
+   filterBy : string = "all"
+   sortBy: string = 'name'
     constructor(private eventService : EventService, private route: ActivatedRoute){}
     ngOnInit(){
        this.event = this.eventService.getEvent(this.route.snapshot.params['id'])
