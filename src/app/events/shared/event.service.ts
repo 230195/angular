@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core'
+import {Injectable,EventEmitter} from '@angular/core'
 import {Subject, Observable} from 'rxjs'// create the observable of rsjx for the subject step 1 for the Event list resolver...
-import { IEvent } from './event.model';
+import { IEvent, ISession } from './event.model';
 import {Events} from './events-data'
+
 
 @Injectable()
 export class EventService{
@@ -24,6 +25,30 @@ export class EventService{
       event.sessions = []
       event.date = new Date(event.date)
       Events.push(event)
+    }
+    searchSession(searchTerm: String){
+      let term = searchTerm.toLocaleLowerCase()
+      var results : ISession[] = []
+      Events.forEach(event => {
+        
+        var matchingSessions = event.sessions.filter(session =>
+          {
+            return session.name.toLocaleLowerCase().indexOf(term)>-1 
+            
+          })
+          
+          matchingSessions = matchingSessions.map((session: any) =>{
+            session.eventId = event.id
+            return session
+          })
+          //console.log(matchingSessions)
+          results = results.concat(matchingSessions)
+      })
+      var emitter = new EventEmitter(true)
+      setTimeout(()=>{
+          emitter.emit(results)
+      ,100})
+      return emitter
     }
     updateEvent(event: IEvent){
       let index = Events.findIndex(x => x.id == event.id )
