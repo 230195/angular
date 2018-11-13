@@ -1,23 +1,47 @@
 import {Injectable,EventEmitter} from '@angular/core'
-import {Subject, Observable} from 'rxjs'// create the observable of rsjx for the subject step 1 for the Event list resolver...
+import {Subject, Observable, of} from 'rxjs'// create the observable of rsjx for the subject step 1 for the Event list resolver...
 import { IEvent, ISession } from './event.model';
 import {Events} from './events-data'
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable()
 export class EventService{
+  constructor(private http: HttpClient){}
     
     getEvents(): Observable<IEvent[]>{
-      let subject = new Subject<IEvent[]>()
-      setTimeout(() => {subject.next(Events.slice(0)); subject.complete();},100)// Step 2...
-      // console.log(subject.subscribe(x => { for(var key  in x){
-      //  alert(JSON.stringify(x[key].name))
-      // }
-      //}))
-        return subject
+      // let subject = new Subject<IEvent[]>()
+      // setTimeout(() => {subject.next(Events.slice(0)); subject.complete();},100)// Step 2...
+      // // console.log(subject.subscribe(x => { for(var key  in x){
+      // //  alert(JSON.stringify(x[key].name))
+      // // }
+      // //}))
+      //   return subject
+      debugger
+      return this.http.get<IEvent[]>('http://localhost:61794/api/Event')
+        .pipe(
+          catchError(
+            this.handleError<IEvent[]>('getEvents',[])
+          )
+        )
     }
-    getEvent( id : number): IEvent{
-      return Events.slice(0).find(event => event.id == id)
+    private handleError<T>(operation ='operation', result?:T){
+      return (error: any): Observable<T> => {
+        console.error(error)
+        return of(result as T)
+      }
+    }
+    getEvent( id : number): Observable<IEvent>{
+      //return Events.slice(0).find(event => event.id == id)
+      debugger
+      let url = 'http://localhost:61794/api/Event/' + id
+      return this.http.get<IEvent>(url)
+        .pipe(
+          catchError(
+            this.handleError<IEvent>('getEvent')
+          )
+        )
     }
     saveEvent(event : IEvent){
       debugger

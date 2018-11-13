@@ -3,6 +3,7 @@ import { AuthService } from '../user/auth.service';
 import { ISession } from '../events';
 import {EventService} from '../events/shared/event.service'
 
+
 @Component({
     selector: '<nav-bar></nav-bar>',
     templateUrl: './nav-bar.component.html',
@@ -18,13 +19,18 @@ import {EventService} from '../events/shared/event.service'
 export class NavBarComponent{
     searchTerm : string = ""
     foundSession: ISession[]
-    constructor(public authServc: AuthService, private eventService: EventService){}
+
+    constructor(public authServc: AuthService, private eventService: EventService){
+    }
+    
     searchSession(searchTerm){
         this.eventService.searchSession(searchTerm).subscribe(
             sessions => {
                 this.foundSession = sessions
-                console.log(this.foundSession)
             }
-        )
+        )  
+    }
+    onLinkClick(){
+
     }
 }
