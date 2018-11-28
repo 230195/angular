@@ -13,13 +13,21 @@ export class LoginComponent{
     userName
     password
     mouseoverLogin
+    loginInvalid : boolean = false
     constructor(private authServc: AuthService, private route: Router){}
     login(loginData){
         let check: boolean
-        check = this.authServc.loginUser(loginData.userName, loginData.password)
-        if(check === true)
-            this.route.navigate(['events'])
-        console.log(loginData)
+        this.authServc.loginUser(loginData.userName, loginData.password)
+        .subscribe(resp=> {
+            if(!resp){
+                this.loginInvalid = true
+            }else{
+                this.route.navigate(['events'])
+                console.log(loginData)
+                this.loginInvalid = false
+            }
+        })
+        
         return check
     }
     cancel(){

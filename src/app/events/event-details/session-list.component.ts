@@ -12,10 +12,12 @@ export class SessionListComponent implements OnChanges {
     @Input() sessions: ISession[]
     @Input() filterBy: string
     @Input() sortBy: string
+    @Input() eventId: number
     visibleSessions: ISession[] = []
     ngOnChanges() {
         if (this.sessions) {
             this.filterSessions(this.filterBy)
+            debugger
             this.sortBy === 'name' ? this.visibleSessions.sort(sortByNameAsc)
                 : this.visibleSessions.sort(sortByVotesDesc);
         }
@@ -26,9 +28,9 @@ export class SessionListComponent implements OnChanges {
     toggleVote(session: ISession) {
         if (this.auth.currentUser !== null) {
             if (this.userHasVoted(session)) {
-                this.voterService.deleteVoter(session, this.auth.currentUser.userName)
+                this.voterService.deleteVoter(this.eventId, session, this.auth.currentUser.userName)
             } else {
-                this.voterService.addVoter(session, this.auth.currentUser.userName)
+                this.voterService.addVoter(this.eventId, session, this.auth.currentUser.userName)
             }
             if (this.sortBy === "votes")
                 this.visibleSessions.sort(sortByVotesDesc)
@@ -51,8 +53,8 @@ export class SessionListComponent implements OnChanges {
     }
 }
 function sortByNameAsc(s1: ISession, s2: ISession) {
-    if (s1.name > s2.name) return 1
-    else if (s1.name === s2.name) return 0
+    if (s1.name.toLocaleLowerCase() > s2.name.toLocaleLowerCase()) return 1
+    else if (s1.name.toLocaleLowerCase() === s2.name.toLocaleLowerCase()) return 0
     else return -1
 }
 function sortByVotesDesc(s1: ISession, s2: ISession) {

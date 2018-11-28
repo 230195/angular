@@ -1,0 +1,1 @@
+ export const endPointUrl : string = "http://localhost:61794/"

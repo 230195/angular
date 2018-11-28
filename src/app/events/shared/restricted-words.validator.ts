@@ -2,6 +2,7 @@ import {FormControl} from '@angular/forms'
 
 export function restrictedWords(words) {
     return (control: FormControl): { [key: string]: any } => {
+        debugger
         if(!words)
         return null
         // check for the restricted words one by one using map function

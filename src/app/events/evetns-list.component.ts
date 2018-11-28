@@ -9,7 +9,7 @@ import{IEvent} from './shared/event.model'
     <div>
         <h1> Upcoming events</h1>
         <hr/>
-        <div class= "well"><div>What the hell do you want.</div></div>
+        <div class= "well"><div>Welcome I am using Angular CLI 6</div></div>
         <div class="row">
             <div  *ngFor ="let event of events"  class = "col-md-5">
                 <event-thumb  [event] = "event"></event-thumb>

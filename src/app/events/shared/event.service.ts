@@ -1,15 +1,16 @@
 import {Injectable,EventEmitter} from '@angular/core'
 import {Subject, Observable, of} from 'rxjs'// create the observable of rsjx for the subject step 1 for the Event list resolver...
 import { IEvent, ISession } from './event.model';
+import  {endPointUrl} from './EndPointUrl'
 import {Events} from './events-data'
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { Options } from 'selenium-webdriver/chrome';
 
 
 @Injectable()
 export class EventService{
   constructor(private http: HttpClient){}
-    
     getEvents(): Observable<IEvent[]>{
       // let subject = new Subject<IEvent[]>()
       // setTimeout(() => {subject.next(Events.slice(0)); subject.complete();},100)// Step 2...
@@ -18,8 +19,8 @@ export class EventService{
       // // }
       // //}))
       //   return subject
-      debugger
-      return this.http.get<IEvent[]>('http://localhost:61794/api/Event')
+      let url = endPointUrl + "api/Event";
+      return this.http.get<IEvent[]>(url)
         .pipe(
           catchError(
             this.handleError<IEvent[]>('getEvents',[])
@@ -34,8 +35,7 @@ export class EventService{
     }
     getEvent( id : number): Observable<IEvent>{
       //return Events.slice(0).find(event => event.id == id)
-      debugger
-      let url = 'http://localhost:61794/api/Event/' + id
+      let url = endPointUrl + "api/Event/" + id;
       return this.http.get<IEvent>(url)
         .pipe(
           catchError(
@@ -45,13 +45,24 @@ export class EventService{
     }
     saveEvent(event : IEvent){
       debugger
-      event.id = Events[Events.length-1].id+1
-      event.sessions = []
-      event.date = new Date(event.date)
-      Events.push(event)
+      // event.id = Events[Events.length-1].id+1
+      // event.sessions = []
+      // event.date = new Date(event.date)
+      // Events.push(event) /// before including http
+      debugger
+      let url = endPointUrl + "api/Event"
+      let options = {headers: new HttpHeaders({'Content-Type': 'application/json'})}
+      let jsonString = JSON.stringify(event) 
+      let item = this.http.post<IEvent>(url, event, options)
+        .pipe(
+          catchError(
+            this.handleError('saveEvent')
+          )
+        )
+        return item
     }
-    searchSession(searchTerm: String){
-      let term = searchTerm.toLocaleLowerCase()
+    searchSession(searchTerm: String): Observable<ISession[]>{
+     /* let term = searchTerm.toLocaleLowerCase()// this is the peice of code which was written before including the server..
       var results : ISession[] = []
       Events.forEach(event => {
         
@@ -73,9 +84,22 @@ export class EventService{
           emitter.emit(results)
       ,100})
       return emitter
+      */ 
+     debugger
+     let url = endPointUrl + 'api/sessions/search?search=' + searchTerm
+     return this.http.get<ISession[]>(url)
+        .pipe(catchError(this.handleError<ISession[]>('Search Session')))
     }
     updateEvent(event: IEvent){
-      let index = Events.findIndex(x => x.id == event.id )
-      Events[index] = event   
+      var url = endPointUrl + 'api/event'
+      var options = {headers: new HttpHeaders({'Content-Type':'application/json'})}
+      return this.http.put<IEvent>(url, event, options)
+      .pipe(
+        catchError(
+          this.handleError('updateEvent')
+        )
+      )
+      // let index = Events.findIndex(x => x.id == event.id )
+      // Events[index] = event   
     }
 }

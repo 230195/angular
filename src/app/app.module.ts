@@ -35,6 +35,7 @@ import {
   SimpleModalComponent,
   ModalTriggerDirective
 } from '../common/index'
+import {InfiniteScrollModule} from 'ngx-infinite-scroll'
 
 //declare let toastr : Toastr
 let toastr:Toastr = window['toastr']
@@ -63,7 +64,8 @@ let JQuery: Object = window['$'] // is for Jquery
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    InfiniteScrollModule
   ],
   providers: [
     EventService,
@@ -88,7 +90,7 @@ let JQuery: Object = window['$'] // is for Jquery
   bootstrap: [EventListComponent]
 })
 
-export class AppModule { }
+export class AppModule {}
 
 export function checkDirtyState(component: CreateEventComponent){
   if(component.isDirty)

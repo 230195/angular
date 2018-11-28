@@ -17,10 +17,10 @@ export const appRoutes: Routes = [
         {Events:EventListResolver}
     },
     {path:'events/session/new', component:CreateSessionComponent},
-    {path: 'events/:id', component: EventDetailsComponent, 
-        //canActivate: [EventRouteActivator]
-        resolve:
-            {event: EventResolver}
+    {path: 'events/:id', component: EventDetailsComponent,
+     resolve:
+        {event: EventResolver}
+    //  canActivate: [EventRouteActivator]
     },
     {path: '404', component: Error404Component},
     {path: 'user', loadChildren: './user/user.module#UserModule'},
